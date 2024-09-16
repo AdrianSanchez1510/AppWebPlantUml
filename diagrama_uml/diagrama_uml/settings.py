@@ -75,10 +75,34 @@ WSGI_APPLICATION = 'diagrama_uml.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'nombre_base_de_datos_mysql',
+        'USER': 'usuario_mysql',
+        'PASSWORD': 'password_mysql',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    },
+    'postgresql': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'nombre_base_de_datos_postgresql',
+        'USER': 'usuario_postgresql',
+        'PASSWORD': 'password_postgresql',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    },
+    'sqlserver': {
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'nombre_base_de_datos_sqlserver',
+        'USER': 'usuario_sqlserver',
+        'PASSWORD': 'password_sqlserver',
+        'HOST': 'localhost',
+        'PORT': '1433',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
     }
 }
+
 
 
 # Password validation
