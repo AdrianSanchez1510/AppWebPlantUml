@@ -3,64 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Screen</title>
+    <title>Mostrar Diagrama</title>
     <style>
         body {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
             height: 100vh;
             background-color: #f0f0f0;
+            position: relative;
         }
-        .left-section, .right-section, .middle-left-section {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .middle-section {
-            flex: 2;
+        .container {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            width: 50%;
+            height: 80%;
+            background: white;
+            padding: 20px;
+            box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
             justify-content: center;
+        }
+        .image-container {
+            text-align: right;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
             align-items: center;
         }
-        iframe {
-            width: 100%;
-            height: 100%;
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .btn-top-left, .btn-middle, .btn-bottom-left {
+            position: absolute;
+            padding: 10px 15px;
+            color: white;
             border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-top-left {
+            top: 20px;
+            left: 20px;
+            background-color: #007bff;
+        }
+        .btn-middle {
+            top: 20px;
+            left: 160px;
+            background-color: #6c757d;
+        }
+        .btn-bottom-left {
+            bottom: 20px;
+            left: 20px;
+            background-color: #28a745;
+        }
+        .btn-top-left:hover, .btn-middle:hover, .btn-bottom-left:hover {
+            opacity: 0.8;
+        }
+        .selected-databases {
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+            background: white;
+            padding: 10px;
+            border: 1px solid #007bff;
+            border-radius: 4px;
+            width: 250px;
+            text-align: center;
+            font-size: 14px;
+            color: #0056b3;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .database-image {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+        .diagram-images {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .diagram-images img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin: 0 10px;
         }
     </style>
 </head>
 <body>
+    <!-- Button at the top left corner -->
+    <button class="btn-top-left" onclick="window.location.href='form.html'">Conectar Bases</button>
 
-    <!-- Middle Left section for Base de Datos Seleccionada -->
-    <div class="middle-left-section">
-        <iframe src="base-datos-seleccionada.html"></iframe>
+    <!-- Button in the middle -->
+    <button class="btn-middle" onclick="window.location.href='database-list.html'">Elige Base de Datos</button>
+
+    <!-- Button at the bottom left corner -->
+    <button class="btn-bottom-left">Actualizar Bases</button>
+
+    <div class="container">
+        <h1>Diagrama PlantUML</h1>
+        <div class="image-container">
+            <div class="diagram-images" id="diagramImages"></div>
+        </div>
     </div>
 
-    <!-- Left section for the Database List (Elegir Bases) -->
-    <div class="left-section">
-        <iframe src="database-list.html" id="databaseList"></iframe>
+    <!-- Selected Database Display -->
+    <div id="selectedDatabases" class="selected-databases">
+        <p>Base de Datos Seleccionadas:</p>
+        <div id="selectedPostgres"></div>
+        <div id="selectedMySQL"></div>
+        <div id="selectedSQLServer"></div>
     </div>
 
-    <!-- Middle section for Diagrama PlantUML -->
-    <div class="middle-section">
-        <iframe src="diagrama-plantuml.html"></iframe>
-    </div>
+    <script>
+        // Function to get image URL based on database name
+        function getImageUrl(databaseName) {
+            const images = {
+                "PostgreSQL - DB 1": "path/to/postgres-db1.png",
+                "PostgreSQL - DB 2": "path/to/postgres-db2.png",
+                "MySQL - DB 1": "path/to/mysql-db1.png",
+                "MySQL - DB 2": "path/to/mysql-db2.png",
+                "SQL Server - DB 1": "path/to/sqlserver-db1.png",
+                "SQL Server - DB 2": "path/to/sqlserver-db2.png"
+            };
+            return images[databaseName] || "";
+        }
 
-    <!-- Right section for the Form (Conectar Bases) -->
-    <div class="right-section">
-        <iframe src="form.html" id="formSection"></iframe>
-    </div>
+        // Update the selected databases display
+        window.onload = function() {
+            const selectedPostgres = localStorage.getItem('selectedPostgres') || 'Ninguna';
+            const selectedMySQL = localStorage.getItem('selectedMySQL') || 'Ninguna';
+            const selectedSQLServer = localStorage.getItem('selectedSQLServer') || 'Ninguna';
 
-    <!-- Right section for Actualizar Bases -->
-    <div class="right-section">
-        <iframe src="actualizar-bases.html"></iframe>
-    </div>
+            // Update the text and image display
+            document.getElementById('selectedPostgres').innerHTML = selectedPostgres !== 'Ninguna' ? 
+                `<p>${selectedPostgres}</p><img src="path/to/postgres-image.png" class="database-image" alt="PostgreSQL">` : 
+                '<p>PostgreSQL: Ninguna</p>';
 
+            document.getElementById('selectedMySQL').innerHTML = selectedMySQL !== 'Ninguna' ? 
+                `<p>${selectedMySQL}</p><img src="path/to/mysql-image.png" class="database-image" alt="MySQL">` : 
+                '<p>MySQL: Ninguna</p>';
+
+            document.getElementById('selectedSQLServer').innerHTML = selectedSQLServer !== 'Ninguna' ? 
+                `<p>${selectedSQLServer}</p><img src="path/to/sqlserver-image.png" class="database-image" alt="SQL Server">` : 
+                '<p>SQL Server: Ninguna</p>';
+
+            // Update the Diagrama PlantUML section with unique images
+            const diagramImagesContainer = document.getElementById('diagramImages');
+            const selectedDatabases = [selectedPostgres, selectedMySQL, selectedSQLServer];
+            selectedDatabases.forEach(database => {
+                const imgUrl = getImageUrl(database);
+                if (imgUrl) {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = imgUrl;
+                    imgElement.alt = database;
+                    diagramImagesContainer.appendChild(imgElement);
+                }
+            });
+        };
+    </script>
 </body>
 </html>
