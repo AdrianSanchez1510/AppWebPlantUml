@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elige Base de Datos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .database-list-container {
+            background: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            width: 350px;
+        }
+        .database-list-container select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .database-list-container button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .cancel-button {
+            background-color: #dc3545;
+        }
+        .accept-button {
+            background-color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="database-list-container">
+        <h2>Elige Base de Datos</h2>
+
+        <label for="postgres-list">PostgreSQL:</label>
+        <select id="postgres-list" name="postgres">
+            <option value="" disabled selected>Selecciona una base de datos</option>
+            <option value="PostgreSQL - DB 1">PostgreSQL - DB 1</option>
+            <option value="PostgreSQL - DB 2">PostgreSQL - DB 2</option>
+        </select>
+
+        <label for="mysql-list">MySQL:</label>
+        <select id="mysql-list" name="mysql">
+            <option value="" disabled selected>Selecciona una base de datos</option>
+            <option value="MySQL - DB 1">MySQL - DB 1</option>
+            <option value="MySQL - DB 2">MySQL - DB 2</option>
+        </select>
+
+        <label for="sqlserver-list">SQL Server:</label>
+        <select id="sqlserver-list" name="sqlserver">
+            <option value="" disabled selected>Selecciona una base de datos</option>
+            <option value="SQL Server - DB 1">SQL Server - DB 1</option>
+            <option value="SQL Server - DB 2">SQL Server - DB 2</option>
+        </select>
+
+        <!-- Button Group with Aceptar and Cancelar -->
+        <div class="button-group">
+            <button type="button" class="accept-button" onclick="acceptDatabases()">Aceptar</button>
+            <button type="button" class="cancel-button" onclick="window.location.href='index.html'">Cancelar</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to handle database selection and store in localStorage
+        function acceptDatabases() {
+            const selectedPostgres = document.getElementById('postgres-list').value || 'Ninguna';
+            const selectedMySQL = document.getElementById('mysql-list').value || 'Ninguna';
+            const selectedSQLServer = document.getElementById('sqlserver-list').value || 'Ninguna';
+
+            localStorage.setItem('selectedPostgres', selectedPostgres);
+            localStorage.setItem('selectedMySQL', selectedMySQL);
+            localStorage.setItem('selectedSQLServer', selectedSQLServer);
+
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

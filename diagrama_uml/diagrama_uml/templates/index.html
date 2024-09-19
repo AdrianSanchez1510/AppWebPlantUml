@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Screen</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .left-section, .right-section, .middle-left-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .middle-section {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Middle Left section for Base de Datos Seleccionada -->
+    <div class="middle-left-section">
+        <iframe src="base-datos-seleccionada.html"></iframe>
+    </div>
+
+    <!-- Left section for the Database List (Elegir Bases) -->
+    <div class="left-section">
+        <iframe src="database-list.html" id="databaseList"></iframe>
+    </div>
+
+    <!-- Middle section for Diagrama PlantUML -->
+    <div class="middle-section">
+        <iframe src="diagrama-plantuml.html"></iframe>
+    </div>
+
+    <!-- Right section for the Form (Conectar Bases) -->
+    <div class="right-section">
+        <iframe src="form.html" id="formSection"></iframe>
+    </div>
+
+    <!-- Right section for Actualizar Bases -->
+    <div class="right-section">
+        <iframe src="actualizar-bases.html"></iframe>
+    </div>
+
+</body>
+</html>
