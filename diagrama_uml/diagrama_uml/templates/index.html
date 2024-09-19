@@ -41,7 +41,7 @@
             max-width: 100%;
             height: auto;
         }
-        .btn-top-left, .btn-middle, .btn-bottom-left {
+        .btn-top-left, .btn-middle, .btn-bottom-left, .btn-disconnect {
             position: absolute;
             padding: 10px 15px;
             color: white;
@@ -65,7 +65,12 @@
             left: 20px;
             background-color: #28a745;
         }
-        .btn-top-left:hover, .btn-middle:hover, .btn-bottom-left:hover {
+        .btn-disconnect {
+            bottom: 20px;
+            left: 180px; /* Adjust this value for spacing */
+            background-color: #dc3545; /* Red color for disconnect button */
+        }
+        .btn-top-left:hover, .btn-middle:hover, .btn-bottom-left:hover, .btn-disconnect:hover {
             opacity: 0.8;
         }
         .selected-databases {
@@ -112,6 +117,9 @@
 
     <!-- Button at the bottom left corner -->
     <button class="btn-bottom-left">Actualizar Bases</button>
+
+    <!-- Disconnect button -->
+    <button class="btn-disconnect" onclick="window.location.href='disconnect.html'">Desconectar Base</button>
 
     <div class="container">
         <h1>Diagrama PlantUML</h1>

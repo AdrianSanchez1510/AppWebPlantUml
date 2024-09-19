@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desconectar Base de Datos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            width: 350px;
+        }
+        .database-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .database-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border: 1px solid #007bff;
+            margin: 5px 0;
+            border-radius: 4px;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .button-group button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .delete-button {
+            background-color: #dc3545;
+            color: white;
+        }
+        .cancel-button {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Desconectar Base de Datos</h2>
+        <ul class="database-list" id="databaseList">
+            <!-- Databases will be populated here -->
+        </ul>
+        <div class="button-group">
+            <button class="cancel-button" onclick="window.location.href='index.html'">Cancelar</button>
+        </div>
+    </div>
+
+    <script>
+        const databases = [
+            "PostgreSQL - DB 1",
+            "PostgreSQL - DB 2",
+            "MySQL - DB 1",
+            "MySQL - DB 2",
+            "SQL Server - DB 1",
+            "SQL Server - DB 2"
+        ];
+
+        const databaseList = document.getElementById('databaseList');
+
+        // Populate the database list
+        databases.forEach(db => {
+            const listItem = document.createElement('li');
+            listItem.className = 'database-item';
+            listItem.innerHTML = `
+                <span>${db}</span>
+                <button class="delete-button" onclick="confirmDelete('${db}')">Eliminar</button>
+            `;
+            databaseList.appendChild(listItem);
+        });
+
+        // Confirm delete action
+        function confirmDelete(dbName) {
+            const confirmation = confirm(`¿Estás seguro de que quieres desconectar la base de datos "${dbName}"?`);
+            if (confirmation) {
+                alert(`Base de datos "${dbName}" desconectada`);
+                // Logic to remove the database from your storage would go here
+                
+                // Redirect back to the main page after deletion
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>
