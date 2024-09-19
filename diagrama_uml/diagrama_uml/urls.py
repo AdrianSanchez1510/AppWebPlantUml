@@ -16,7 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from ..views import mostrar_diagrama
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('mostrar-diagrama/', mostrar_diagrama, name='mostrar_diagrama'),
 ]
