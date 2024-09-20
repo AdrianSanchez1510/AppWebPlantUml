@@ -1,18 +1,19 @@
-from django.shortcuts import render
-from .services import generar_codigo_plantuml, obtener_imagen_plantuml
+from django.http import HttpResponse
+from .services import generar_diagrama_para_base_datos
 
-# views.py
-from django.shortcuts import render, redirect
+def generar_diagrama(request):
+    # Parámetros de conexión obtenidos desde la URL o formulario
+    tipo_base_datos = request.GET.get('tipo_base_datos', 'postgresql')
+    host = request.GET.get('host', 'localhost')
+    puerto = int(request.GET.get('puerto', 5432))
+    usuario = request.GET.get('usuario', 'admin')
+    password = request.GET.get('password', 'admin')
+    nombre_base_datos = request.GET.get('nombre_base_datos', 'Practica')
 
-def mostrar_diagrama(request):
-    codigo_plantuml = generar_codigo_plantuml(tablas, columnas)
-    imagen_url = obtener_imagen_plantuml(codigo_plantuml)
-    return render(request, 'mostrar_diagrama.html', {'imagen_url': imagen_url})
-
-def conectar_base(request):
-    # Lógica para conectar a la base de datos
-    return redirect('mostrar_diagrama')  # Redirige después de conectar
-
-def actualizar_uml(request):
-    # Lógica para actualizar el UML
-    return redirect('mostrar_diagrama')  # Redirige después de actualizar
+    # Generar el diagrama
+    imagen_binaria = generar_diagrama_para_base_datos(tipo_base_datos, host, puerto, usuario, password, nombre_base_datos)
+    
+    if imagen_binaria:
+        return HttpResponse(imagen_binaria, content_type="image/png")
+    else:
+        return HttpResponse("No se pudo generar el diagrama.", status=400)
